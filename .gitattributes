@@ -1,0 +1,11 @@
+# Scripts Python : fins de ligne LF
+*.py text eol=lf
+
+# Fichiers CSV : fins de ligne LF
+*.csv text eol=lf
+
+# Autres fichiers texte
+*.md text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+*.sql text eol=lf
