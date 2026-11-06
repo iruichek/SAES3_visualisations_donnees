@@ -1,14 +1,16 @@
 import pandas as pd
 
-df = pd.read_csv("data/clean/tgv_clean.csv", sep=";")
+df = pd.read_csv("data/raw/tgv_complet.csv", sep=";")
 
 colonnes = ["duree_moyenne", "retard_moyen_arrivee",
             "retard_moyen_tous_trains_depart", "retard_moyen_tous_trains_arrivee"]
+
 
 def bornes(serie):
     q1, q3 = serie.quantile(0.25), serie.quantile(0.75)
     iqr = q3 - q1
     return q1 - 1.5 * iqr, q3 + 1.5 * iqr
+
 
 print("1. Méthode globale (toutes liaisons mélangées)")
 for col in colonnes:

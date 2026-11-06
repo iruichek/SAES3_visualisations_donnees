@@ -85,3 +85,5 @@ lancer("Nettoyage météo", "scripts/nettoyage/nettoyage_meteo.py")
 lancer("Contrôles météo", "scripts/qualite/controles_meteo.py", bloquant=not args.partiel)
 
 print("\nPipeline terminé.")
+
+
