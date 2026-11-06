@@ -2,3 +2,6 @@
 data/raw/meteo_*.json
 __pycache__/
 *.pyc
+data/raw/meteo_*.json
+__pycache__/
+*.pyc
