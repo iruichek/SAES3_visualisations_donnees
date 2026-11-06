@@ -1,0 +1,6 @@
+motif;ville;mois_date;temp_moy_c;precip_cumul_mm;pluie_cumul_mm;rafale_max_kmh;nb_jours_gel;nb_jours_canicule;nb_jours_neige;nb_jours_neige_marquee;valeur_source_externe;ecart;commentaire
+mois avec le plus de neige (>= 1 cm);Besançon;2021-01-01;2.04;191.3;140.5;87.8;19;0;17;11;;;
+mois le plus chaud (canicule);Avignon;2022-07-01;27.88;2.5;2.5;83.2;0;15;0;0;;;
+mois le plus pluvieux;Nice;2019-11-01;12.29;376.4;376.4;76.0;0;0;0;0;;;
+mois avec la plus forte rafale;Brest;2023-11-01;11.07;196.5;196.5;147.6;0;0;0;0;;;
+mois tiré au hasard (graine 42);Mâcon;2025-12-01;5.57;60.8;60.8;60.1;7;0;0;0;;;
