@@ -58,3 +58,15 @@ print("Lignes avec prevu_nul :", df["prevu_nul"].sum())
 print("\nMinimum des retards moyens 'tous trains' (à vérifier) :")
 print(df[["retard_moyen_tous_trains_depart",
           "retard_moyen_tous_trains_arrivee"]].min().to_string())
+
+print(pd.crosstab(
+    df["duree_moyenne"].isna(),
+    df["nb_train_prevu"].eq(0)
+))
+
+gares_inconnues = sorted(
+    df.loc[df["ville_depart"].isna(), "gare_depart"].dropna().unique()
+)
+
+print("Nombre de gares inconnues :", len(gares_inconnues))
+print(gares_inconnues)
