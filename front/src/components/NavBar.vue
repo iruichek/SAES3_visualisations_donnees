@@ -7,19 +7,41 @@
         <span class="brand-text">NuageSurLesRails</span>
       </RouterLink>
 
-      <!-- Navigation principale -->
       <nav aria-label="Navigation principale">
         <RouterLink to="/" class="nav-link">Accueil</RouterLink>
-        
-        <!-- Lien de connexion -->
-        <RouterLink to="/login" class="login-button">
+
+        <RouterLink v-if="!auth.session" to="/login" class="login-button">
           Se connecter
         </RouterLink>
+
+        <template v-else>
+
+          <template v-if="auth.session.user.role === 'admin'">
+            <RouterLink to="/admin/utilisateurs" class="nav-link">Utilisateurs</RouterLink>
+            <RouterLink to="/admin/accueil" class="nav-link">Modifier l’accueil</RouterLink>
+          </template>
+
+          <button type="button" class="login-button" @click="logout">Se déconnecter</button>
+          <span class="session-label">Connecté en tant que <strong>{{ auth.session.user.login }}</strong></span>
+        </template>
       </nav>
 
     </div>
   </header>
 </template>
+
+<script setup>
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth.js'
+
+const router = useRouter()
+const auth = useAuthStore()
+
+function logout() {
+  auth.signOut()
+  router.push('/')
+}
+</script>
 
 <style scoped>
 .navbar {
@@ -35,6 +57,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .brand {
@@ -51,8 +75,15 @@
 
 nav {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 1.5rem;
+}
+
+.session-label {
+  color: #cbe8ff;
+  font: 0.9rem system-ui, sans-serif;
+  overflow-wrap: anywhere;
 }
 
 .nav-link {

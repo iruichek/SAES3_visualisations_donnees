@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "login": "admin",
+    "passwordHash": "$2b$10$OhNBR2cxaV7sjgIneKVrxOSmL2f7QMK3nuV5HjqtlQ8ifIAOODUXe",
+    "role": "admin"
+  },
+  {
+    "id": "2",
+    "login": "user1",
+    "passwordHash": "$2b$10$Ki2Hm/SS8yVug6yOC62FY.L9yT87DW.ViOP7RPJJd4bpYjENWdk3m",
+    "role": "user"
+  },
+  {
+    "id": "3",
+    "login": "user2",
+    "passwordHash": "$2b$10$ye8Hn3yokI6YrxVLrcoY5uK9gH642g8GxtQsYpMTqmqH1BvlIncK.",
+    "role": "user"
+  }
+]
