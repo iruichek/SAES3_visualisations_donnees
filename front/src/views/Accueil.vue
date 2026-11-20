@@ -1,141 +1,120 @@
 <template>
-  <main>
-    <!-- La grande bande centrale qui regroupe tout le contenu -->
-    <div class="content-container">
-      <header>
-        <h1>NuageSurLesRails</h1>
-      </header>
+  <main class="home">
+    <header class="hero">
+      <div>
+        <h1>Mauvaise météo et trains ne font pas bon ménage.</h1>
+        <p>
+          Visualisez l’impact des conditions météorologiques sur la ponctualité des TER en France.
+        </p>
+      </div>
+    </header>
 
-      <section class="description-section">
-        <h2>
-          NuageSurLesRails est une plateforme web destinée à explorer et analyser les impacts des conditions météorologiques sur la ponctualité des TER en France.
-          Le site croise les données de régularité du réseau ferroviaire avec les relevés climatiques régionaux pour visualiser l'influence du temps sur le trafic.
-        </h2>
-      </section>
 
-      <section class="carousel-section">
-        <Carousel :items="carouselItems" />
-      </section>
+    <div class="row row--graphs">
+      <Carousel :items="carouselItems" />
 
-      <section class="cta-section">
-        <div class="cta-card">
-          <p class="cta-text">
-            <strong>Envie d'aller plus loin ?</strong>
-            Connectez-vous pour accéder aux outils d'analyse descriptive
-            et aux statistiques par région.
-          </p>
-          <RouterLink to="/login" class="cta-button">
-            Se connecter
-          </RouterLink>
-        </div>
-      </section>
+      <p>{{ description }}</p>
     </div>
 
-    <footer>
-    </footer>
+    <div v-if="!auth.session" class="row row--login">
+      <p>
+        <strong>Envie d’aller plus loin ?</strong>
+        Connectez-vous pour accéder aux outils d’analyse descriptive et aux statistiques par région.
+      </p>
+
+      <RouterLink to="/login" class="login-link">Se connecter</RouterLink>
+    </div>
   </main>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
 import Carousel from '@/components/Carousel.vue'
-import { getCarouselItems } from '@/services/carouselService.js'
+import { getHomeContent } from '@/services/homeContentService.js'
+import { useAuthStore } from '@/stores/auth.js'
 
-const carouselItems = ref([])
-
-onMounted(() => {
-  carouselItems.value = getCarouselItems()
-})
+const auth = useAuthStore()
+const { description, carouselItems } = getHomeContent()
 </script>
 
 <style scoped>
-main {
-  min-height: calc(100vh - 70px);
-  /* Le fond de la page reste bleu ciel */
-  background-color: #cbe8ff;
-  display: flex;
-  flex-direction: column;
+.home {
+  font-family: system-ui, sans-serif;
+  color: #1e293b;
+}
+
+.hero {
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  min-height: 90svh;
+  padding: 2rem 1.5rem;
+  background: linear-gradient(#0f172a99, #0f172abf),
+    #1e293b url('../public/images/Train.jpeg') center / cover no-repeat;
+  color: white;
+  text-align: center;
+}
+
+.hero h1 {
+  max-width: 50ch;
+  margin: 0 auto 1rem;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.hero p {
+  max-width: 55ch;
+  margin: 0 auto;
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  line-height: 1.5;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: center;
-  padding: 2rem 1rem;
-  font-family: system-ui, -apple-system, sans-serif;
+  gap: 2rem;
+  padding: 3rem max(2rem, calc((100% - 1100px) / 2));
 }
 
-/* La bande / carte blanche au centre */
-.content-container {
-  background-color: #ffffff;
-  width: 100%;
-  max-width: 850px; /* Largeur maximale de la bande centrale */
-  padding: 3rem 2.5rem;
-  border-radius: 16px; /* Coins arrondis élégants */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06); /* Ombre douce */
+.row--graphs {
+  column-gap: clamp(3rem, 6vw, 5rem);
+  background-color: #fff;
 }
 
-header {
-  text-align: center;
-  margin-bottom: 1.5rem;
+.row--login {
+  background-color: #e6f3ff;
 }
 
-h1 {
+@media (max-width: 700px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding-block: 2rem;
+  }
+
+  .row--graphs {
+    row-gap: 1.5rem;
+  }
+}
+
+.row p {
   margin: 0;
-  font-size: 3rem;
-  font-weight: 800;
-  color: #1e293b;
-  letter-spacing: -1px;
+  font-size: 1.125rem;
+  line-height: 1.65;
 }
 
-.description-section {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-h2 {
-  font-size: 1.15rem;
-  font-weight: 400;
-  line-height: 1.6;
-  color: #475569;
-}
-
-.carousel-section {
-  margin-bottom: 2rem;
-}
-
-/* La carte CTA dans la bande centrale */
-.cta-card {
-  background-color: #f8fafc; /* Gris très léger pour contraster avec la bande blanche */
-  padding: 1.5rem;
-  border-radius: 12px;
-  text-align: center;
-}
-
-.cta-text {
-  margin: 0 0 1rem 0;
-  color: #1e293b;
-  font-weight: 500;
-}
-
-.cta-button {
-  display: inline-block;
+.login-link {
+  justify-self: center;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.5rem;
   background-color: #1e293b;
-  color: #ffffff;
-  padding: 0.75rem 1.75rem;
-  border-radius: 8px;
+  color: #fff;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.2s ease;
 }
 
-.cta-button:hover {
-  background-color: #0284c7;
-}
-
-@media (max-width: 768px) {
-  .content-container {
-    padding: 1.5rem 1rem;
-    border-radius: 12px;
-  }
-
-  h1 {
-    font-size: 2.2rem;
-  }
+.login-link:hover {
+  background-color: #334155;
 }
 </style>
